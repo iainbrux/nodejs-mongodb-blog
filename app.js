@@ -1,8 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
-const Blog = require("./models/blog");
-const { render } = require("ejs");
+const blogRoutes = require("./routes/blogRoutes");
 
 //express app
 
@@ -44,36 +43,7 @@ app.get("/about", (req, res) => {
 });
 
 //blog routes
-app.get("/blogs", (req, res) => {
-  Blog.find()
-    .sort({ createdAt: -1 })
-    .then((result) => {
-      res.render("index", { title: "All Blogs", blogs: result });
-    })
-    .then((err) => console.log(err));
-});
-
-app.post("/blogs", (req, res) => {
-  const blog = new Blog(req.body);
-
-  blog
-    .save()
-    .then(() => res.redirect("/blogs"))
-    .catch((err) => console.log(err));
-});
-
-app.get("/blogs/:id", (req, res) => {
-  const id = req.params.id;
-  Blog.findById(id)
-    .then((result) => {
-      render("details", { blog: result, title: "Blog Details" });
-    })
-    .catch((err) => console.log(err));
-});
-
-app.get("/blogs/create", (req, res) => {
-  res.render("create", { title: "New Blog" });
-});
+app.use('/blogs', blogRoutes);
 
 //404 page
 
