@@ -8,7 +8,7 @@
     "nodemon": "^2.0.7"
   },
   "scripts": {
-    "run": "node app"
+    "start": "nodemon app"
   },
   "name": "nodejs-course",
   "version": "1.0.0",
