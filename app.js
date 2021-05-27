@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
+const Blog = require("./models/blog");
 
 //express app
 
@@ -17,7 +18,7 @@ const dbURI =
       useUnifiedTopology: true,
     });
     console.log("Connected to mongoDB");
-    app.listen(3000); //Will listen for requests if successfull
+    app.listen(3000); //Will listen for requests if successful
   } catch (err) {
     console.log(err);
   }
@@ -33,25 +34,21 @@ app.use(express.static("public")); //<--- allows use of 'public' directory for s
 app.use(morgan("dev"));
 
 app.get("/", (req, res) => {
-  const blogs = [
-    {
-      title: "Mercy saves Genji",
-      snippet: "Lorem ipsum dolor sit amet consectetur",
-    },
-    {
-      title: "Cloud9 win LCS",
-      snippet: "Lorem ipsum dolor sit amet consectetur",
-    },
-    {
-      title: "The Legion invade Azeroth",
-      snippet: "Lorem ipsum dolor sit amet consectetur",
-    },
-  ];
-  res.render("index", { title: "Home", blogs });
+  res.redirect("/blogs");
 });
 
 app.get("/about", (req, res) => {
   res.render("about", { title: "About" });
+});
+
+//blog routes
+app.get("/blogs", (req, res) => {
+  Blog.find()
+    .sort({ createdAt: -1 })
+    .then((result) => {
+      res.render("index", { title: "All Blogs", blogs: result });
+    })
+    .then((err) => console.log(err));
 });
 
 app.get("/blogs/create", (req, res) => {
