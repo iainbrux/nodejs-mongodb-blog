@@ -4,22 +4,25 @@ function blog_index(req, res) {
   Blog.find()
     .sort({ createdAt: -1 })
     .then((result) => {
-      res.render("index", { title: "All Blogs", blogs: result });
+      res.render("blogs/index", { title: "All Blogs", blogs: result });
     })
-    .then((err) => console.log(err));
+    .catch((err) => console.log(err));
 }
 
 function blog_details(req, res) {
   const id = req.params.id;
   Blog.findById(id)
     .then((result) => {
-      res.render("details", { blog: result, title: "Blog Details" });
+      res.render("blogs/details", { blog: result, title: "Blog Details" });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      res.status(404).render("404", { title: "Not Found" });
+      console.log(err);
+    });
 }
 
 function blog_create_get(req, res) {
-  res.render("create", { title: "New Blog" });
+  res.render("blogs/create", { title: "New Blog" });
 }
 
 function blog_create_post(req, res) {
@@ -44,5 +47,5 @@ module.exports = {
   blog_details,
   blog_create_get,
   blog_create_post,
-  blog_delete
+  blog_delete,
 };
