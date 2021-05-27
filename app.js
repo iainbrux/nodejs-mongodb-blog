@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const Blog = require("./models/blog");
+const { render } = require("ejs");
 
 //express app
 
@@ -30,7 +31,8 @@ app.set("view engine", "ejs");
 
 //middleware & static files
 
-app.use(express.static("public")); //<--- allows use of 'public' directory for styles.css
+app.use(express.static("public")); //allows use of 'public' directory for styles.css
+app.use(express.urlencoded({ extended: true })); //takes url encoded data and parses to object
 app.use(morgan("dev"));
 
 app.get("/", (req, res) => {
@@ -49,6 +51,24 @@ app.get("/blogs", (req, res) => {
       res.render("index", { title: "All Blogs", blogs: result });
     })
     .then((err) => console.log(err));
+});
+
+app.post("/blogs", (req, res) => {
+  const blog = new Blog(req.body);
+
+  blog
+    .save()
+    .then(() => res.redirect("/blogs"))
+    .catch((err) => console.log(err));
+});
+
+app.get("/blogs/:id", (req, res) => {
+  const id = req.params.id;
+  Blog.findById(id)
+    .then((result) => {
+      render("details", { blog: result, title: "Blog Details" });
+    })
+    .catch((err) => console.log(err));
 });
 
 app.get("/blogs/create", (req, res) => {
