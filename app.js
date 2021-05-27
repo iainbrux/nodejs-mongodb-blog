@@ -2,7 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const blogRoutes = require("./routes/blogRoutes");
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 9200;
 
 //express app
 
@@ -12,18 +12,16 @@ const app = express();
 
 const dbURI =
   "mongodb+srv://iainbrux:yR6SxtjWEPHEDMfw@nodejs-blog.gupeo.mongodb.net/nodejs-blog?retryWrites=true&w=majority";
-(async function connectToDB() {
-  try {
-    await mongoose.connect(dbURI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log("Connected to mongoDB");
-    app.listen(PORT); //Will listen for requests if successful
-  } catch (err) {
-    console.log(err);
-  }
-})();
+
+mongoose.connect(dbURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Connected to MongoDB");
+    app.listen(3000);
+  })
+  .catch((err) => console.log(err));
 
 //register view engine
 
@@ -44,7 +42,7 @@ app.get("/about", (req, res) => {
 });
 
 //blog routes
-app.use('/blogs', blogRoutes);
+app.use("/blogs", blogRoutes);
 
 //404 page
 
