@@ -2,7 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const blogRoutes = require("./routes/blogRoutes");
-const PORT = process.env.PORT || 9200;
+const PORT = process.env.PORT || 5000;
 
 //express app
 
@@ -19,7 +19,7 @@ mongoose.connect(dbURI, {
   })
   .then(() => {
     console.log("Connected to MongoDB");
-    app.listen(3000);
+    app.listen(PORT);
   })
   .catch((err) => console.log(err));
 
