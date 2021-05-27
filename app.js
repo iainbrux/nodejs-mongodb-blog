@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const blogRoutes = require("./routes/blogRoutes");
+const PORT = process.env.PORT || 3000;
 
 //express app
 
@@ -18,7 +19,7 @@ const dbURI =
       useUnifiedTopology: true,
     });
     console.log("Connected to mongoDB");
-    app.listen(3000); //Will listen for requests if successful
+    app.listen(PORT); //Will listen for requests if successful
   } catch (err) {
     console.log(err);
   }
