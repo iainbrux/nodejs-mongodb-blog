@@ -19,7 +19,7 @@ mongoose.connect(dbURI, {
   })
   .then(() => {
     console.log("Connected to MongoDB");
-    app.listen(3000);
+    app.listen(PORT);
   })
   .catch((err) => console.log(err));
 
