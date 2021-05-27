@@ -8,7 +8,7 @@
     "nodemon": "^2.0.7"
   },
   "scripts": {
-    "run": "yarn nodemon app"
+    "run": "node app"
   },
   "name": "nodejs-course",
   "version": "1.0.0",
