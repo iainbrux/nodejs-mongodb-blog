@@ -1,1 +1,1 @@
-yarn nodemon app
+yarn start
