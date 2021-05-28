@@ -1,9 +1,19 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap"); */
+@font-face {
+  font-family: sf-display;
+  src: url('/sf-display.ttf');
+}
+
+@font-face {
+  font-family: sf-text;
+  src: url('/sf-text.ttf');
+}
+
 body {
   max-width: 1200px;
   margin: 20px auto;
   padding: 0 20px;
-  font-family: "Inter", serif;
+  font-family: "sf-text", serif;
   max-width: 1200px;
 }
 p,
@@ -16,6 +26,11 @@ ul {
   padding: 0;
   text-decoration: none;
   color: #222;
+}
+h1,
+h2,
+h3 {
+  font-family: 'sf-display';
 }
 
 /* nav & footer styles */
@@ -36,6 +51,10 @@ nav li {
   list-style-type: none;
   margin-left: 20px;
 }
+nav ul a:hover {
+  color: rgb(20, 130, 220);
+  transition-duration: 0.4s;
+}
 nav h1 {
   font-size: 3em;
 }
@@ -48,6 +67,10 @@ footer {
   color: #777;
   text-align: center;
   margin: 80px auto 20px;
+}
+footer p {
+  color: #777;
+  margin-bottom: 10px;
 }
 h2 {
   margin-bottom: 40px;
@@ -65,10 +88,10 @@ h3 {
   display: block;
   margin: 40px 0;
   padding-left: 30px;
-  border-left: 6px solid crimson;
+  border-left: 6px solid rgb(20, 130, 220);
 }
 .blogs a:hover h3 {
-  color: crimson;
+  color: rgb(20, 130, 220);
   transition-duration: 0.3s;
 }
 
